@@ -5,8 +5,20 @@ import { CheckCircle, XCircle, Play, Clock, Users, Mic } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 
+interface Submission {
+  id: string;
+  name: string;
+  message: string;
+  category: string;
+  timestamp: string;
+  status: 'pending' | 'approved' | 'rejected' | 'live';
+  estimatedAirTime?: string;
+  reason?: string;
+  airTime?: string;
+}
+
 const AdminView = () => {
-  const [submissions, setSubmissions] = useState([
+  const [submissions, setSubmissions] = useState<Submission[]>([
     {
       id: '1',
       name: 'Sarah Johnson',
@@ -58,7 +70,7 @@ const AdminView = () => {
 
   const handleApprove = (id: string) => {
     setSubmissions(prev => prev.map(sub => 
-      sub.id === id ? { ...sub, status: 'approved' } : sub
+      sub.id === id ? { ...sub, status: 'approved' as const } : sub
     ));
     toast({
       title: "Message Approved",
@@ -68,7 +80,7 @@ const AdminView = () => {
 
   const handleReject = (id: string) => {
     setSubmissions(prev => prev.map(sub => 
-      sub.id === id ? { ...sub, status: 'rejected', reason: 'Content guidelines' } : sub
+      sub.id === id ? { ...sub, status: 'rejected' as const, reason: 'Content guidelines' } : sub
     ));
     toast({
       title: "Message Rejected",
@@ -79,7 +91,7 @@ const AdminView = () => {
 
   const handlePushLive = (id: string) => {
     setSubmissions(prev => prev.map(sub => 
-      sub.id === id ? { ...sub, status: 'live', airTime: 'On air now' } : sub
+      sub.id === id ? { ...sub, status: 'live' as const, airTime: 'On air now' } : sub
     ));
     toast({
       title: "Pushed to Live",
