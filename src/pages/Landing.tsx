@@ -32,7 +32,7 @@ const Landing = () => {
       <AnimatedBackground />
       <Navigation />
       
-      <div className="relative z-10">
+      <div className="relative z-10 pt-16">
         {/* Hero Section */}
         <section className="min-h-screen flex items-center justify-center px-4">
           <div className="text-center max-w-4xl mx-auto">
